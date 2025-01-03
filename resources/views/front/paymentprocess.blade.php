@@ -3,7 +3,8 @@
 @section('main')
 
 <section class="section-4 bg-2">
-
+<br>
+<br>
     <div class="payment-options">
         <div class="container mt-4">
             <div class="card border-0 shadow-sm">
