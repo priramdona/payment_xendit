@@ -26,6 +26,8 @@ return new class extends Migration
             $table->timestamp('applied_date');
             $table->integer('hide_name')->default(0);
             $table->string('status')->default('Pending');
+            $table->decimal('received_amount',14,4)->nullable();
+            $table->decimal('deduction_amount',14,4)->nullable();
             $table->timestamps();
         });
     }
