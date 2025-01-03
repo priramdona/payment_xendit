@@ -35,7 +35,7 @@
                             </div>
                         @endforeach
                     @endif
-                    <form action="{{ route('payment-process', $jobId) }}" method="POST">
+                    <form id="paymentForm"  action="{{ route('payment-process', $jobId) }}" method="POST">
                         @csrf <!-- Token CSRF untuk keamanan -->
                         <!-- Input Nominal Lain -->
                         {{-- <div class="mb-3">
