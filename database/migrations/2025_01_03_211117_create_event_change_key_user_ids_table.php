@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('foruserid')->nullable();
             $table->string('keyprivate')->nullable();
             $table->string('keypublic')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
