@@ -90,7 +90,7 @@ Route::group(['prefix' => 'account'], function(){
         // Route::get('/my-jobs/edit/{jobId}',[AccountController::class,'editJob'])->name('account.editJob');
         // Route::post('/update-job/{jobId}',[AccountController::class,'updateJob'])->name('account.updateJob');
         // Route::post('/delete-job',[AccountController::class,'deleteJob'])->name('account.deleteJob');
-        // Route::get('/my-job-applications',[AccountController::class,'myJobApplications'])->name('account.myJobApplications');
+        Route::get('/my-job-applications',[AccountController::class,'myJobApplications'])->name('account.myJobApplications');
 
         // Route::post('/remove-job-application',[AccountController::class,'removeJobs'])->name('account.removeJobs');
         // Route::get('/saved-jobs',[AccountController::class,'savedJobs'])->name('account.savedJobs');
@@ -116,5 +116,13 @@ Route::group(['prefix' => 'account'], function(){
     Route::get('/failedpayment', [PaymentGatewayController::class, 'failedPayment'])->name('failedpayment');
     Route::get('/underprocess', [PaymentGatewayController::class, 'underprocess'])->name('underprocess');
     Route::get('/success-payment-process', [AccountController::class, 'successPaymentProcess'])->name('success-payment-process');
+
+
+    Route::post('/financial-management-withdraw-process', [PaymentGatewayController::class, 'withdraw'])
+    ->name('financial.management.withdraw.process');
+    Route::get('/get-disbursement-channels', [PaymentGatewayController::class, 'getDisbursementChannels']);
+    // Route::get('/financial-management-withdraw', [PaymentGatewayController::class, 'index'])->name('financial.management.withdraw');
+    // Route::get('/financial-management-history', [PaymentGatewayController::class, 'history'])->name('financial.management.history');
+    // Route::get('/financial-management-topup', [PaymentGatewayController::class, 'index'])->name('financial.management.topup');
 
 });

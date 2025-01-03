@@ -23,11 +23,11 @@
                     <div class="card-body card-form">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h3 class="fs-4 mb-1">Program Donasi Saya</h3>
+                                <h3 class="fs-4 mb-1">Program Pembayaran Saya</h3>
                             </div>
-                            <div style="margin-top: -10px;">
+                            {{-- <div style="margin-top: -10px;">
                                 <a href="{{ route("account.createJob") }}" class="btn btn-primary">Post a Job</a>
-                            </div>
+                            </div> --}}
 
                         </div>
                         <div class="table-responsive">
@@ -56,7 +56,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <div class="action-dots float-end">
+                                                {{-- <div class="action-dots float-end">
                                                     <button href="#" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
                                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                     </button>
@@ -65,7 +65,7 @@
                                                         <li><a class="dropdown-item" href="{{ route('account.editJob', $job->id) }}"><i class="fa fa-edit" aria-hidden="true"></i> Ubah</a></li>
                                                         <li><a class="dropdown-item" href="#" onclick="deleteJob({{ $job->id }})" ><i class="fa fa-trash" aria-hidden="true"></i> Hapus</a></li>
                                                     </ul>
-                                                </div>
+                                                </div> --}}
                                             </td>
                                         </tr>
                                         @endforeach
@@ -86,19 +86,5 @@
 </section>
 @endsection
 @section('customJs')
-<script type="text/javascript">
-function deleteJob(jobId) {
-    if (confirm("Are you sure you want to delete?")) {
-        $.ajax({
-            url : '{{ route("account.deleteJob") }}',
-            type: 'post',
-            data: {jobId: jobId},
-            dataType: 'json',
-            success: function(response) {
-                window.location.href='{{ route("account.myJobs") }}';
-            }
-        });
-    }
-}
-</script>
+
 @endsection

@@ -98,16 +98,25 @@ class FetchXenditTransactionsJob implements ShouldQueue
         ]);
 
         if ( $transaction['settlement_status'] == 'SETTLED'){
-            $paymentStatus = "Completed";
+            $paymentStatus = "Settled";
         }else{
             $paymentStatus = $transaction['settlement_status'];
         }
 
-        JobApplication::where('reference_id', $transaction['reference_id'])->update([
-            'status' => $paymentStatus,
-            'received_amount' => $transaction['net_amount'],
-            'deduction_amount' => $transaction['fee']['xendit_fee'] + $transaction['fee']['value_added_tax'] + $transaction['fee']['xendit_withholding_tax'] + $transaction['fee']['third_party_withholding_tax'] ,
-        ]);
+        if ($transaction['type'] === 'DISBURSEMENT'){
+            JobApplication::where('reference_id', $transaction['reference_id'])->update([
+                'status' => $transaction['settlement_status'],
+             ]);
+
+        }else{
+            JobApplication::where('reference_id', $transaction['reference_id'])->update([
+                'status' => $paymentStatus,
+                'received_amount' => $transaction['net_amount'],
+                'deduction_amount' => $transaction['fee']['xendit_fee'] + $transaction['fee']['value_added_tax'] + $transaction['fee']['xendit_withholding_tax'] + $transaction['fee']['third_party_withholding_tax'] ,
+            ]);
+
+        }
+
         XenditDisbursement::where('reference_id', $transaction['reference_id'])->update([
             'status' => $paymentStatus,
         ]);

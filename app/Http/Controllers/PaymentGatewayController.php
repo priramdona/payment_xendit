@@ -34,6 +34,9 @@ use App\Models\PaymentMethod;
 use App\Models\SavedJob;
 use App\Models\User;
 use App\Models\XenditCreatePayment;
+use App\Models\XenditDisbursement;
+use App\Models\XenditDisbursementChannel;
+use App\Models\XenditDisbursementMethod;
 use App\Models\XenditPaymentMethod;
 use App\Models\XenditPaymentRequest;
 use App\Models\XenditVirtualAccountRequest;
@@ -41,6 +44,8 @@ use Illuminate\Support\Facades\Http;
 use Xendit\Configuration;
 use Xendit\PaymentRequest\PaymentRequestApi;
 use Xendit\PaymentRequest\PaymentRequestParameters;
+use Xendit\Payout\CreatePayoutRequest;
+use Xendit\Payout\PayoutApi;
 
 class PaymentGatewayController extends Controller
 {
@@ -498,6 +503,7 @@ class PaymentGatewayController extends Controller
             ]);
             $application = JobApplication::find( $sourceId);
             $application->reference_id = $apiResult->external_id;
+            $application->code = 'VA-'.$channelCode;
             $application->save();
 
             $result = [
@@ -508,6 +514,190 @@ class PaymentGatewayController extends Controller
 
 
         return $result;
+    }
+    public function showBalance(){
+
+        $balance = JobApplication::where('user_id',Auth::user()->id)
+        ->where('status','Settled')
+        ->whereNot('type','Disbursement')
+        ->sum('received_amount');
+
+
+        $balanceOut = JobApplication::where('user_id',Auth::user()->id)
+        // ->where('status','Settled')
+        ->where('type','Disbursement')
+        ->sum('received_amount');
+
+        return $balance - $balanceOut;
+
+    }
+    public function withdraw(Request $request) {
+
+        if ($request->amount < 0 ){
+            return redirect()->back()
+            ->withErrors('Cek Nominal')
+            ->withInput();
+        }
+
+        $paymentGateway =  new PaymentGatewayController();
+        $balance = $paymentGateway->showBalance();
+
+        if ($request->amount > $balance ){
+            return redirect()->back()
+            ->withErrors('Saldo tidak cukup')
+            ->withInput();
+        }
+
+        $apiPaymentGateway = new PaymentGatewayController();
+
+        $createDisbursement = $apiPaymentGateway->createDisbursement(
+            $request->disbursement_method,
+            $request->disbursement_channel,
+            $request->account_name,
+            $request->account_number,
+            $request->amount,
+            $request->transaction_amount,
+            $request->notes ?? ''
+        );
+        // $businessAmount = Setting::firstOrFail();
+
+        return redirect()->route('account.myJobApplications');
+    }
+    public function createDisbursement(
+        string $disMethod,
+        string $disChannel,
+        string $accountName,
+        string $accountNo,
+        float $amount,
+        float $transactionAmount,
+        string $notes)
+    {
+
+        $foruserid = Auth::user()->foruserid;
+        $keyprivate = Auth::user()->keyprivate;
+
+        if ( blank($foruserid)){
+            return redirect()->back()
+            ->withErrors('Periksa ID User atau ID Bisnis anda di pengaturan Akun')
+            ->withInput();
+        }
+        if ( blank($keyprivate)){
+            return redirect()->back()
+            ->withErrors('Periksa Key Private anda di pengaturan Akun')
+            ->withInput();
+        }
+
+        if ($keyprivate === 'default'){
+            Configuration::setXenditKey(config('services.xendit.key'));
+        }else{
+            Configuration::setXenditKey($keyprivate);
+        }
+
+        if ($foruserid === 'default' || $foruserid === config('services.xendit.user_id')){
+            $forUserId = null;
+        }
+
+        $idTransaction = str::orderedUuid()->toString();
+        $reffPayment =  $idTransaction . '-' . Carbon::now()->format('Ymdss');
+
+        // $businessData = Business::find(Auth::user()->business_id);
+        $disbursementMethodData = XenditDisbursementMethod::find($disMethod);
+        $disbursementChannelData = XenditDisbursementChannel::find($disChannel);
+
+        $apiInstance = new PayoutApi();
+        $idempotencyKey = 'dist-'.rand(1,10000) . Carbon::now()->format('Ymmddss');
+        $forUserId = null;
+        $createPayoutRequestPayload = [
+            'reference_id' => $reffPayment,
+            'currency' => 'IDR',
+            'channel_code' => $disbursementChannelData->code,
+            'receipt_notification' => [
+              'email_to' => [
+                  Auth::user()->email
+              ],
+              'email_bcc' => json_decode( $disbursementMethodData->email_owner),
+            ],
+            'channel_properties' => [
+              'account_holder_name' => $accountName,
+              'account_number' => $accountNo,
+            //   'account_type' => $disbursementMethodData->type
+            ],
+            'amount' => $amount,
+            'description' => $notes,
+            'type' => 'DIRECT_DISBURSEMENT'
+          ];
+
+        $createPayoutRequest = new CreatePayoutRequest($createPayoutRequestPayload);
+
+        try {
+            $apiResultCreate = $apiInstance->createPayout($idempotencyKey, $forUserId, $createPayoutRequest);
+            // dd($apiResultCreate);
+            $xenditDisbursment = XenditDisbursement::create([
+                'id' => $idTransaction,
+                'disbursement_id' =>  $apiResultCreate['id'],
+                'reference_id' => $apiResultCreate['reference_id'],
+                'channel_code' => $apiResultCreate['channel_code'],
+                'channel_properties' => json_encode($apiResultCreate['channel_properties']),
+                'amount' => $apiResultCreate['amount'],
+                'description' => $apiResultCreate['description'],
+                'currency' => $apiResultCreate['currency'],
+                'receipt_notification' => json_encode($apiResultCreate['receipt_notification']),
+                'metadata' => json_encode($apiResultCreate['metadata']),
+                'created' => Carbon::parse($apiResultCreate['created'])->setTimezone(config('app.timezone'))->format('Y-m-d H:i:s'),
+                'updated' => Carbon::parse($apiResultCreate['updated'])->setTimezone(config('app.timezone'))->format('Y-m-d H:i:s'),
+                'xen_business_id' => $apiResultCreate['business_id'],
+                // 'business_id' => Auth::user()->id,
+                'status' => $apiResultCreate['status'],
+                'failure_code' => $apiResultCreate['failure_code'],
+                'estimated_arrival_time' => Carbon::parse($apiResultCreate['estimated_arrival_time'])->setTimezone(config('app.timezone'))->format('Y-m-d H:i:s'),
+            ]);
+
+            $application = new JobApplication();
+            $application->job_id = null;
+            $application->user_id = Auth::user()->id;
+            $application->employer_id = null;
+            $application->applied_date = now();
+            $application->email = Auth::user()->email;
+            $application->name = Auth::user()->name;
+            $application->phone = Auth::user()->mobile;
+            $application->type = 'Disbursement';
+            $application->hide_name = false;
+            $application->amount = $amount;
+            $application->received_amount = $transactionAmount;
+            $application->deduction_amount = $amount - $transactionAmount;
+            $application->message = $notes;
+            $application->reference_id = $apiResultCreate['reference_id'];
+            $application->code = 'Withdraw';
+            $application->save();
+
+            // $payloadBusinessAmount = [
+            //     'business_id' => Auth::user()->business_id ?? null,
+            //     'status_credit' => -1,
+            //     'transactional_type' => XenditDisbursement::class ?? null,
+            //     'transactional_id' => $xenditDisbursment->id ?? null,
+            //     'reference_id' => $apiResultCreate['reference_id'],
+            //     'amount' => $transactionAmount ?? null,
+            //     'transaction_amount' =>  $amount ?? null,
+            //     'received_amount' => 0,
+            //     'deduction_amount' => 0,
+            //     'status' => 'PENDING',
+            // ];
+
+            // businessAmount::create($payloadBusinessAmount);
+
+        } catch (\Xendit\XenditSdkException $e) {
+            throw new \Exception(json_encode($e->getMessage()));
+        }
+        return $apiResultCreate;
+    }
+    public function getDisbursementChannels(Request $request)
+    {
+        $xdmId = $request->get('xdm_id');
+        $channels = XenditDisbursementChannel::where('xdm_id', $xdmId)
+        ->orderBy('name')
+        ->get(['id', 'name']);
+
+        return response()->json($channels); // Kembalikan data dalam format JSON
     }
     public function succesPayment()
     {

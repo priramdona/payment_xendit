@@ -5,6 +5,9 @@
             <li class="list-group-item d-flex justify-content-between p-3">
                 <a href="{{ route('account.profile') }}">Akun</a>
             </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <a href="{{ route('account.myJobApplications') }}">Program Pembayaran Saya</a>
+            </li>
             {{-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <a href="{{ route('account.createJob') }}">Buat Galang Donasi</a>
             </li>

@@ -707,10 +707,14 @@ class AccountController extends Controller
         $jobApplications = JobApplication::where('user_id',Auth::user()->id)
                 ->with(['job','job.jobType','job.applications'])
                 ->orderBy('created_at','DESC')
-                ->paginate(10);
+                ->paginate(25);
+
+        $paymentGateway =  new PaymentGatewayController();
+        $balance = $paymentGateway->showBalance();
 
         return view('front.account.job.my-job-applications',[
-            'jobApplications' => $jobApplications
+            'jobApplications' => $jobApplications,
+            'balance' => $balance,
         ]);
     }
 
