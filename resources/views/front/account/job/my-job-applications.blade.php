@@ -114,9 +114,9 @@
                                     </div>
                             </div>
                             <br>
-                            <div class="form-group mb-0">
-                                <button type="submit" class="btn btn-primary"><i class="bi bi-check"></i> Tarik Dana</button>
-                            </div>
+                            <button type="submit" id="submitBtn" class="btn btn-primary mt-3" disabled>
+                                <i class="bi bi-check"></i> Tarik Dana
+                            </button>
                         </form>
                     </div>
                 </div>
