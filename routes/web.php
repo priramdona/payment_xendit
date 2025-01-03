@@ -11,6 +11,7 @@ use App\Http\Controllers\PaymentGatewayController;
 use App\Http\Controllers\XenditWebhookController;
 use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,11 +105,17 @@ Route::group(['prefix' => 'account'], function(){
 
     Route::get('/payment-method-va',[AccountController::class,'paymentMethodVa'])->name('payment.method.va');
     Route::get('/payment-summary', function (Illuminate\Http\Request $request) {
-        $selectedId = $request->methodId; // Ambil metode pembayaran dari query string
-        $jobId = $request->jobId ?? 'DONASI'; // Ambil metode pembayaran dari query string
-        $paymentMethods = PaymentMethod::find($selectedId);
+        if (Auth::check()){
+            $selectedId = $request->methodId; // Ambil metode pembayaran dari query string
+            $jobId = $request->jobId ?? 'DONASI'; // Ambil metode pembayaran dari query string
+            $paymentMethods = PaymentMethod::find($selectedId);
 
-        return view('front.paymentsummary', ['paymentMethods' => $paymentMethods, 'jobId' => $jobId]);
+            return view('front.paymentsummary', ['paymentMethods' => $paymentMethods, 'jobId' => $jobId]);
+
+        }else{
+            return redirect()->route('account.login');
+            // return route('');
+        }
     })->name('account.payment-summary');
     Route::post('/payment-process/{id}', [AccountController::class, 'processPayment'])->name('payment-process');
 
