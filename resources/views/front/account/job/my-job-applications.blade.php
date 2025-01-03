@@ -200,7 +200,7 @@
             $('#label_disbursement_channel').text(xdmName);
 
             // Hapus semua opsi sebelumnya dari dropdown disbursement_channel
-            $('#disbursement_channel').empty().append('<option value="" selected disabled>{{ __('payment_gateway.select_channel') }}</option>');
+            $('#disbursement_channel').empty().append('<option value="" selected disabled>Pilih Akun</option>');
 
             if (xdmId) {
                 // Kirim permintaan AJAX ke server untuk mendapatkan channel berdasarkan xdm_id
