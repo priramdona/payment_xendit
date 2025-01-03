@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Jobs\FetchXenditTransactionsJob;
+use App\Jobs\FetchXenditTransactionsJobProd;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,6 +16,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->job(new FetchXenditTransactionsJob)->everyMinute();
+        $schedule->job(new FetchXenditTransactionsJobProd)->everyMinute();
     }
 
     /**

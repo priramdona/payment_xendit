@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('foruserid')->default('default');
             $table->text('keyprivate')->default('default');
             $table->text('keypublic')->default('default');
+            $table->text('type')->default('demo');
             $table->rememberToken();
             $table->timestamps();
         });

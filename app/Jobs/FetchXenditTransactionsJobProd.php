@@ -2,24 +2,25 @@
 
 namespace App\Jobs;
 
-use App\Models\JobApplication;
-use App\Models\XenditCreatePayment;
-use App\Models\XenditDisbursement;
-use App\Models\XenditTransaction;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+
+use App\Models\JobApplication;
+use App\Models\XenditCreatePayment;
+use App\Models\XenditDisbursement;
+use App\Models\XenditTransaction;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
-class FetchXenditTransactionsJob implements ShouldQueue
+
+class FetchXenditTransactionsJobProd implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $baseUrl = 'https://api.xendit.co';
-
     /**
      * Create a new job instance.
      */
@@ -31,7 +32,7 @@ class FetchXenditTransactionsJob implements ShouldQueue
         $retryAttempts = 0;
         $maxRetries = 5;
 
-        $apiKey = config('services.xendit.key');
+        $apiKey = config('services.xendit.key_prod');
 
         while ($hasMore) {
         $url = "{$this->baseUrl}/transactions?limit=50";

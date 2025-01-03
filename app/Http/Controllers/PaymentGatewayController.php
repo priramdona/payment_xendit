@@ -220,16 +220,28 @@ class PaymentGatewayController extends Controller
         ?array $basket = null,
         ?array $metadata = null){
 
-        if ($keyPrivate === 'default'){
-            Configuration::setXenditKey(config('services.xendit.key'));
-        }else{
-            Configuration::setXenditKey($keyPrivate);
-        }
+            if (Auth::user()->type === "demo"){
 
-        if ($forUserId === 'default' || $forUserId === config('services.xendit.user_id')){
-            $forUserId = null;
-        }
+                if ($keyPrivate === 'default'){
+                    Configuration::setXenditKey(config('services.xendit.key'));
+                }else{
+                    Configuration::setXenditKey($keyPrivate);
+                }
 
+                if ($forUserId === 'default' || $forUserId === config('services.xendit.user_id')){
+                    $forUserId = null;
+                }
+            }else{
+                if ($keyPrivate === 'default'){
+                    Configuration::setXenditKey(config('services.xendit.key_prod'));
+                }else{
+                    Configuration::setXenditKey($keyPrivate);
+                }
+
+                if ($forUserId === 'default' || $forUserId === config('services.xendit.user_id')){
+                    $forUserId = null;
+                }
+            }
         $apiInstance = new PaymentRequestApi();
         $idempotency_key = rand(1,10000) . Carbon::now()->format('Ymmddss');
         $paymentMethod = null;
@@ -404,15 +416,28 @@ class PaymentGatewayController extends Controller
         ?string $nameVA = 'Pembayaran Virtual Account',
         ){
 
-            if ($keyPrivate === 'default'){
-                $base64 = base64_encode(config('services.xendit.key').':');
+            if (Auth::user()->type === "demo"){
+                if ($keyPrivate === 'default'){
+                    $base64 = base64_encode(config('services.xendit.key').':');
+                }else{
+                    $base64 = base64_encode($keyPrivate.':');
+                }
+
+                if ($forUserId === 'default' || $forUserId === config('services.xendit.user_id')){
+                    $forUserId = null;
+                }
             }else{
-                $base64 = base64_encode($keyPrivate.':');
+                if ($keyPrivate === 'default'){
+                    $base64 = base64_encode(config('services.xendit.key_prod').':');
+                }else{
+                    $base64 = base64_encode($keyPrivate.':');
+                }
+
+                if ($forUserId === 'default' || $forUserId === config('services.xendit.user_id')){
+                    $forUserId = null;
+                }
             }
 
-            if ($forUserId === 'default' || $forUserId === config('services.xendit.user_id')){
-                $forUserId = null;
-            }
 
             $secret_key = 'Basic ' . $base64;
             $url = 'https://api.xendit.co/callback_virtual_accounts';
@@ -586,11 +611,19 @@ class PaymentGatewayController extends Controller
             ->withErrors('Periksa Key Private anda di pengaturan Akun')
             ->withInput();
         }
-
-        if ($keyprivate === 'default'){
-            Configuration::setXenditKey(config('services.xendit.key'));
-        }else{
-            Configuration::setXenditKey($keyprivate);
+        if (Auth::user()->type === "demo"){
+            if ($keyprivate === 'default'){
+                Configuration::setXenditKey(config('services.xendit.key'));
+            }else{
+                Configuration::setXenditKey($keyprivate);
+            }
+        }
+        else{
+            if ($keyprivate === 'default'){
+                Configuration::setXenditKey(config('services.xendit.key_prod'));
+            }else{
+                Configuration::setXenditKey($keyprivate);
+            }
         }
 
         if ($foruserid === 'default' || $foruserid === config('services.xendit.user_id')){
