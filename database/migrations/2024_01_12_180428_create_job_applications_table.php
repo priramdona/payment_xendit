@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('status')->default('Pending');
             $table->decimal('received_amount',14,4)->nullable();
             $table->decimal('deduction_amount',14,4)->nullable();
+            $table->string('code')->nullable();
             $table->timestamps();
         });
     }
