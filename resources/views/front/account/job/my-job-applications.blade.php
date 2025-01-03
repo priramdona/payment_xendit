@@ -130,29 +130,29 @@
                             </div>
 
                         </div>
-                        <div class="table-responsive">
-                            <table class="table">
+                        <div class="table-responsive" style="max-height: 70vh; overflow-y: auto;">
+                            <table id="preview-table" class="table table-bordered" style="table-layout: auto; width: 100%;">
                                 <thead class="bg-light">
                                     <tr>
-                                        <th scope="col">Tipe</th>
-                                        <th scope="col">Tanggal</th>
-                                        <th scope="col">Nominal</th>
-                                        <th scope="col">Diterima</th>
-                                        <th scope="col">Dipotong</th>
-                                        <th scope="col">Status</th>
+                                        <th style="background: #96cbff; white-space: nowrap;" scope="col">Tipe</th>
+                                        <th style="background: #96cbff; white-space: nowrap;"scope="col">Tanggal</th>
+                                        <th style="background: #96cbff; white-space: nowrap;"scope="col">Nominal</th>
+                                        <th style="background: #96cbff; white-space: nowrap;"scope="col">Diterima</th>
+                                        <th style="background: #96cbff; white-space: nowrap;"scope="col">Dipotong</th>
+                                        <th style="background: #96cbff; white-space: nowrap;"scope="col">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody class="border-0">
                                     @if ($jobApplications->isNotEmpty())
                                         @foreach ($jobApplications as $jobApplication)
                                         <tr class="active">
-                                            <td>{{ $jobApplication->type }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($jobApplication->applied_date)->format('d-m-Y h:m') }}</td>
-                                            <td>{{ number_format($jobApplication->amount, 2, ',', '.') }}</td>
-                                            <td>{{ number_format($jobApplication->received_amount, 2, ',', '.') }}</td>
-                                            <td>{{ number_format($jobApplication->deduction_amount, 2, ',', '.') }}</td>
+                                            <td  style="white-space: nowrap;">{{ $jobApplication->code }}</td>
+                                            <td style="white-space: nowrap;">{{ \Carbon\Carbon::parse($jobApplication->applied_date)->format('d-m-Y h:m') }}</td>
+                                            <td style="white-space: nowrap;">{{ number_format($jobApplication->amount, 2, ',', '.') }}</td>
+                                            <td style="white-space: nowrap;">{{ number_format($jobApplication->received_amount, 2, ',', '.') }}</td>
+                                            <td style="white-space: nowrap;">{{ number_format($jobApplication->deduction_amount, 2, ',', '.') }}</td>
 
-                                            <td>{{ strtolower($jobApplication->status)  }}</td>
+                                            <td style="white-space: nowrap;">{{ strtolower($jobApplication->status)  }}</td>
                                         @endforeach
                                     @else
                                     <tr>
