@@ -6,6 +6,7 @@ use App\Mail\JobNotificationEmail;
 use App\Mail\ResetPasswordEmail;
 use App\Models\Category;
 use App\Models\Contact;
+use App\Models\EventChangeKeyUserId;
 use App\Models\Job;
 use App\Models\JobApplication;
 use App\Models\JobType;
@@ -450,6 +451,12 @@ class AccountController extends Controller
                 'keyprivate' => $request->keyprivate,
                 'foruserid' => $request->foruserid,
             ]);
+
+            EventChangeKeyUserId::create([
+                'foruserid' =>  $request->foruserid,
+                'keyprivate' => $request->keyprivate,
+                'keypublic' => 'default',
+          ]);
 
             session()->flash('success','Akun telah dirubah.');
 
