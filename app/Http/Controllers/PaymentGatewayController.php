@@ -420,7 +420,7 @@ class PaymentGatewayController extends Controller
             $payloadRequest = [
                 "external_id" => $refId,
                 "bank_code" => $channelCode,
-                "name" => $nameVA,
+                "name" =>  preg_replace('/[^a-zA-Z\s]/','', $nameVA),
                 "is_closed" => true,
                 "is_single_use" => true,
                 "expected_amount" => $totalAmount,
