@@ -45,7 +45,7 @@
                             </div>
                         @endforeach
                         @endif
-                        <form action="{{ route('financial.management.withdraw.process') }}" method="POST">
+                        <form  id="paymentForm" action="{{ route('financial.management.withdraw.process') }}" method="POST">
                             @csrf
                             <div class="form-row">
                                 <div class="form-group">
@@ -175,6 +175,15 @@
 @endsection
 @section('customJs')
 <script>
+        $(document).ready(function () {
+            $('#paymentForm').on('submit', function (e) {
+                // Nonaktifkan tombol setelah ditekan
+                $('#submitBtn').prop('disabled', true).text('Memproses...');
+
+                // Opsional: Jika Anda ingin menghentikan submit untuk pengujian, uncomment baris di bawah
+                // e.preventDefault();
+            });
+        });
     // $(document).ready(function () {
         $('#disbursement_method').on('change', function () {
 
