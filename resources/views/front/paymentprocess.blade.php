@@ -66,7 +66,7 @@
 
                     <!-- Total Donasi -->
                     <div class="border p-3 rounded mb-3">
-                        <h6>Total Donasi</h6>
+                        <h6>Total</h6>
                         <h5 class="text-success">Rp {{ number_format($transaction['nominal_response'], 0, ',', '.') }}</h5>
                     </div>
                     <!-- Batas Waktu -->
