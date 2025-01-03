@@ -126,7 +126,9 @@
 
                         <!-- Tombol Konfirmasi -->
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-success btn-lg">Lanjutkan Pembayaran</button>
+                            <button type="submit" id="submitButton" class="btn btn-success btn-lg">
+                                Lanjutkan Pembayaran
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -137,4 +139,14 @@
     @endsection
 
     @section('customJs')
+    <script>
+        $(document).ready(function () {
+            $('#paymentForm').on('submit', function (e) {
+                // Nonaktifkan tombol setelah ditekan
+                $('#submitButton').prop('disabled', true).text('Memproses...');
 
+                // Opsional: Jika Anda ingin menghentikan submit untuk pengujian, uncomment baris di bawah
+                // e.preventDefault();
+            });
+        });
+    </script>
