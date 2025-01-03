@@ -417,7 +417,7 @@ class PaymentGatewayController extends Controller
             ];
             $dataRequest = Http::withHeaders([
                 'Authorization' => $secret_key,
-                'for-user-id' => null
+                'for-user-id' => $forUserId
             ])->post($url, $payloadRequest);
 
             if ($dataRequest->failed()) {

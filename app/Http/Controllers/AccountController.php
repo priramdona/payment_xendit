@@ -441,15 +441,14 @@ class AccountController extends Controller
 
 
         if ($validator->passes()) {
-
-            $user = User::find($id);
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->mobile = $request->mobile;
-            $user->designation = $request->designation;
-            $user->keyprivate = $request->keyprivate;
-            $user->foruserid = $request->foruserid;
-            $user->save();
+            User::where('id',$id)->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+                'designation' => $request->designation,
+                'keyprivate' => $request->keyprivate,
+                'foruserid' => $request->foruserid,
+            ]);
 
             session()->flash('success','Akun telah dirubah.');
 
