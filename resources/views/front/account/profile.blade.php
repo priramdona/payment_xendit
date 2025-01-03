@@ -116,7 +116,7 @@ $("#userForm").submit(function(e){
 
     $.ajax({
         url: '{{ route("account.updateProfile") }}',
-        type: 'put',
+        type: 'get',
         dataType: 'json',
         data: $("#userForm").serializeArray(),
         success: function(response) {
