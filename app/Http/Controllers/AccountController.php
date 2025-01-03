@@ -275,6 +275,7 @@ class AccountController extends Controller
             $application->name = $name;
             $application->phone = $mobile;
             $application->type = $type;
+            $application->user_type = Auth::user()->type;
             $application->hide_name = $hideName;
             $application->amount = $request->nominal;
             $application->message = $request->message;
@@ -707,6 +708,7 @@ class AccountController extends Controller
         $jobApplications = JobApplication::where('user_id',Auth::user()->id)
                 ->with(['job','job.jobType','job.applications'])
                 ->orderBy('created_at','DESC')
+                ->where('user_type', Auth::user()->type)
                 ->paginate(25);
 
         $paymentGateway =  new PaymentGatewayController();

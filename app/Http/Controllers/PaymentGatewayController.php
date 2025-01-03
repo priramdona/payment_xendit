@@ -544,6 +544,7 @@ class PaymentGatewayController extends Controller
 
         $balance = JobApplication::where('user_id',Auth::user()->id)
         ->where('status','Settled')
+        ->where('user_type', Auth::user()->type)
         ->whereNot('type','Disbursement')
         ->sum('received_amount');
 
@@ -551,11 +552,12 @@ class PaymentGatewayController extends Controller
         $balanceOut = JobApplication::where('user_id',Auth::user()->id)
         // ->where('status','Settled')
         ->where('type','Disbursement')
+        ->where('user_type', Auth::user()->type)
         ->sum('received_amount');
 
         return $balance - $balanceOut;
-
     }
+
     public function withdraw(Request $request) {
 
         if ($request->amount < 0 ){
@@ -701,6 +703,7 @@ class PaymentGatewayController extends Controller
             $application->message = $notes;
             $application->reference_id = $apiResultCreate['reference_id'];
             $application->code = 'Withdraw';
+            $application->user_type = Auth::user()->type;
             $application->save();
 
             // $payloadBusinessAmount = [
