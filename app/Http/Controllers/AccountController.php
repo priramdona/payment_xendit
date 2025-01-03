@@ -306,7 +306,7 @@ class AccountController extends Controller
             if ($paymentMethod['action'] === 'qrcode'){
                 $valueResponse = DNS2DFacade::getBarcodePNG($valueResponseOriginal, 'QRCODE', 8,8 );
             }
-
+            // dd($valueResponse);
             $transaction = [
                 'payment_method' => $paymentMethod,
                 'value_response' => $valueResponse, // Simulasi nomor VA

@@ -123,6 +123,7 @@ class PaymentGatewayController extends Controller
 
 
                 $responseActions = json_decode($paymentRequests['actions'], true);
+
                 if ($responseActions){
                     foreach ($responseActions as $item) {
                         if($paymentChannelData->type =='EWALLET'){
@@ -141,6 +142,7 @@ class PaymentGatewayController extends Controller
                                         }
                                     }
                                 }
+
                             }elseif($paymentChannelData->code == 'SHOPEEPAY'){
                                 if ($item['action']== 'PRESENT_TO_CUSTOMER'){
                                     if (isset($item['qr_code']) && !is_null($item['qr_code'])) {
@@ -161,6 +163,7 @@ class PaymentGatewayController extends Controller
                             throw new \Exception("Payment failed, Payment Type doesn't exist for ". $paymentChannelData->type);
                         }
                     }
+
                 }else{
                     $responseActions = json_decode($paymentRequests['payment_method'], true);
                     if ($responseActions){
