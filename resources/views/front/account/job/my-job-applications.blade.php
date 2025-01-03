@@ -185,11 +185,13 @@
             var net_amount = income_amount + 2500 + app_amount;
             if (income_amount >= 10000){
                 $('input[name=amount]').val(net_amount);
+                $('#submitBtn').prop('disabled', false); // Aktifkan tombol
                 var infoamount = document.getElementById('amount').value;
                 var infotransaction = document.getElementById('transaction_amount').value;
                 $('#amount_info').text(formatRupiah(infoamount,'Rp. '));
                 $('#transaction_info').text(formatRupiah(infotransaction,'Rp. '));
             }else{
+                $('#submitBtn').prop('disabled', true);  // Nonaktifkan tombol
                 $('input[name=amount]').val(0);
                 var infoamount = document.getElementById('amount').value;
                 $('#amount_info').text(formatRupiah(infoamount,'Rp. '));
@@ -226,11 +228,13 @@
         var net_amount = income_amount + 2500 + app_amount;
         if (income_amount >= 10000){
             $('input[name=amount]').val(net_amount);
+            $('#submitBtn').prop('disabled', false); // Aktifkan tombol
             var infoamount = document.getElementById('amount').value;
             var infotransaction = document.getElementById('transaction_amount').value;
             $('#amount_info').text(formatRupiah(infoamount,'Rp. '));
             $('#transaction_info').text(formatRupiah(infotransaction,'Rp. '));
         }else{
+            $('#submitBtn').prop('disabled', true);  // Nonaktifkan tombol
             $('input[name=amount]').val(0);
             var infoamount = document.getElementById('amount').value;
             $('#amount_info').text(formatRupiah(infoamount,'Rp. '));
