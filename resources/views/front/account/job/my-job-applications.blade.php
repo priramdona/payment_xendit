@@ -51,8 +51,7 @@
                                 <div class="form-group">
                                     <label name="label_transaction_amount" id="label_transaction_amount" for="transaction_amount">Minimal Nominal<span class="text-danger"> Rp. 10.000</span><span class="text-info"> (Biaya Aplikasi 10% + Biaya Xendit 2.500)</span></label>
 
-                                        <input onkeydown="if (!/^[0-9]$/.test(event.key) && event.key !== 'Backspace') { event.preventDefault(); }"
-                                    type="number" class="form-control" name="transaction_amount" id="transaction_amount" value="" required>
+                                        <input onkeydown="if (!/^[0-9]$/.test(event.key) && event.key !== 'Backspace') { event.preventDefault(); }" type="number" class="form-control" name="transaction_amount" id="transaction_amount" value="10000" required>
                                 </div>
                             </div>
                             <div class="form-row">
