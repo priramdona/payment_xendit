@@ -17,48 +17,45 @@
             <div class="col-lg-3">
                 @include('front.account.sidebar')
             </div>
-            <div class="col-lg-12">
-                <div class="card">
-                        <div class="card-body p-0 d-flex align-items-center shadow-sm">
-                            <div class="bg-gradient-primary p-4 mfe-3 rounded-left">
-                                <i class="bi bi-cash font-2xl"></i>
-                            </div>
-                            <div>
-                                <div class="text-value text-primary" style="font-weight: bold; font-size: 20px;">{{ number_format($balance, 2, ',', '.') }}</div>
-                                <div class="text-muted text-uppercase font-weight-bold large">Saldo Anda</div>
-                            </div>
+
+
+            <div class="col-lg-9">
+                <div class="card border-0 shadow mb-4">
+                    <div class="card-body p-0 d-flex align-items-center shadow-sm">
+                        <div class="bg-gradient-primary p-4 mfe-3 rounded-left">
+                            <i class="bi bi-cash font-2xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-value text-primary" style="font-weight: bold; font-size: 20px;">{{ number_format($balance, 2, ',', '.') }}</div>
+                            <div class="text-muted text-uppercase font-weight-bold large">Saldo Anda</div>
                         </div>
                     </div>
-            </div>
+                </div>
 
-            <div class="col-lg-12">
-                @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{ $error }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endforeach
-                @endif
-                <div class="card">
+                <div class="card border-0 shadow mb-4">
                     <div class="card-header bg-primary text-white">
                         <h5 class="mb-0">Penarikan Dana</h5>
                     </div>
                     <div class="card-body">
+                        @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ $error }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endforeach
+                        @endif
                         <form action="{{ route('financial.management.withdraw.process') }}" method="POST">
                             @csrf
                             <div class="form-row">
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label name="label_transaction_amount" id="label_transaction_amount" for="transaction_amount">Minimal Nominal<span class="text-danger"> Rp. 10.000</span><span class="text-info"> (Biaya Aplikasi 10% + Biaya Xendit 2.500)</span></label>
+                                <div class="form-group">
+                                    <label name="label_transaction_amount" id="label_transaction_amount" for="transaction_amount">Minimal Nominal<span class="text-danger"> Rp. 10.000</span><span class="text-info"> (Biaya Aplikasi 10% + Biaya Xendit 2.500)</span></label>
 
-                                         <input onkeydown="if (!/^[0-9]$/.test(event.key) && event.key !== 'Backspace') { event.preventDefault(); }"
-                                        type="number" class="form-control" name="transaction_amount" id="transaction_amount" value="" required>
-                                    </div>
+                                        <input onkeydown="if (!/^[0-9]$/.test(event.key) && event.key !== 'Backspace') { event.preventDefault(); }"
+                                    type="number" class="form-control" name="transaction_amount" id="transaction_amount" value="" required>
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="disbursement_method">Metode<span class="text-danger">*</span></label>
                                         <select name="disbursement_method" id="disbursement_method" class="form-control" required>
@@ -68,10 +65,8 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label name="label_disbursement_channel" id="label_disbursement_channel" for="disbursement_channel">Akun<span class="text-danger">*</span></label>
                                         <select name="disbursement_channel" id="disbursement_channel" class="form-control" required>
@@ -79,31 +74,25 @@
                                             <!-- Options akan diisi berdasarkan pilihan disbursement_method -->
                                         </select>
                                     </div>
-                                </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="account_name">Nama Akun<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="account_name" id="account_name" value="" required>
                                     </div>
-                                </div>
                             </div>
 
                             <div class="form-row">
-                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label name="label_account_number" id="label_account_number" for="account_number">Nomor Akun <span class="text-danger">*</span></label>
                                         <input onkeydown="if (!/^[0-9]$/.test(event.key) && event.key !== 'Backspace') { event.preventDefault(); }"
                                         type="number" class="form-control" name="account_number" id="account_number" value="" required>
                                     </div>
-                                </div>
                             </div>
 
                             <div class="form-row">
-                                <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label name="label_transaction_info" id="label_transaction_info" for="transaction_info">Nominal Diterima : </label>
+                                        <label name="label_transaction_info" id="label_transaction_info" for="transaction_info">Nominal Terima : </label>
                                         <label class="text-info font-weight-bold col-lg-6" id="transaction_info" name="transaction_info" style="font-weight: bold; font-size: 20px;">Rp. 0.00</label>
 
 
@@ -111,22 +100,19 @@
                                     </div>
                                     <div class="form-group">
 
-                                        <label name="label_amount" id="label_amount" for="amount">Nominal Dipotong : </label>
+                                        <label name="label_amount" id="label_amount" for="amount">Nominal Potong : </label>
                                         <label class="text-primary font-weight-bold col-lg-6" id="amount_info" name="amount_info" style="font-weight: bold; font-size: 20px;">Rp. 0.00</label>
 
                                         <input type="hidden" class="form-control" name="amount" id="amount" value="" readonly>
                                     </div>
                                     <br>
-                                </div>
                             </div>
 
                             <div class="form-row">
-                                <div class="col-lg-8">
                                     <div class="form-group">
                                         <label for="company_address">Catatan Penarikan <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="notes" id="notes" value="">
                                     </div>
-                                </div>
                             </div>
                             <br>
                             <div class="form-group mb-0">
@@ -135,8 +121,6 @@
                         </form>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-9">
                 @include('front.message')
                 <div class="card border-0 shadow mb-4 p-3">
                     <div class="card-body card-form">
