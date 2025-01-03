@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('designation')->nullable();
             $table->string('mobile')->nullable();
-            $table->string('foruserid')->nullable();
+            $table->string('foruserid')->default('default');
             $table->text('keyprivate')->default('default');
             $table->text('keypublic')->default('default');
             $table->rememberToken();

@@ -218,6 +218,10 @@ class PaymentGatewayController extends Controller
             Configuration::setXenditKey($keyPrivate);
         }
 
+        if ($forUserId === 'default' || $forUserId === config('services.xendit.user_id')){
+            $forUserId = null;
+        }
+
         $apiInstance = new PaymentRequestApi();
         $idempotency_key = rand(1,10000) . Carbon::now()->format('Ymmddss');
         $paymentMethod = null;
@@ -398,6 +402,10 @@ class PaymentGatewayController extends Controller
                 $base64 = base64_encode($keyPrivate.':');
             }
 
+            if ($forUserId === 'default' || $forUserId === config('services.xendit.user_id')){
+                $forUserId = null;
+            }
+
             $secret_key = 'Basic ' . $base64;
             $url = 'https://api.xendit.co/callback_virtual_accounts';
 
@@ -415,6 +423,19 @@ class PaymentGatewayController extends Controller
                 "expected_amount" => $totalAmount,
                 "expiration_date" => $timestamp
             ];
+
+            if ($forUserId === '6723980923dd7c0b5281a64d'){
+                $dataRequest = Http::withHeaders([
+                    'Authorization' => $secret_key,
+                    'for-user-id' => null
+                ])->post($url, $payloadRequest);
+            }else{
+                $dataRequest = Http::withHeaders([
+                    'Authorization' => $secret_key,
+                    'for-user-id' => $forUserId
+                ])->post($url, $payloadRequest);
+            }
+
             $dataRequest = Http::withHeaders([
                 'Authorization' => $secret_key,
                 'for-user-id' => $forUserId

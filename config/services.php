@@ -36,7 +36,8 @@ return [
         // 'key' => "xnd_development_kUV1T0HvdsGIZjjCB44UAZbf3y0uWdsiljJj8waKePO6Be3OYFsushKpNJHtujZB", //test munggi
         // 'public_key' => 'xnd_public_development_MH_989vykBMlxR6b45ZcoljKGwRxSQS7XxVzR38aw8bJBtcF5Mm79PuP0LBqmh5'//test munggi
         'key' => "xnd_development_YyGYTQMsAiGf3ca0eRu1fwQ01vYb5sc8sqdVyTGpCfTzSxWgf09TUDPtLYSzbse5", //test primaraharjamulia
-        'public_key' => 'xnd_public_development_lAsH_QDuLpMrFfhVeQicsHSnwTo6ppnIlyzo98r8HGiucEmn6Sxl23MIZPgmZAx'//test primaraharjamulia
+        'public_key' => 'xnd_public_development_lAsH_QDuLpMrFfhVeQicsHSnwTo6ppnIlyzo98r8HGiucEmn6Sxl23MIZPgmZAx',//test primaraharjamulia
+        'user_id' => '6723980923dd7c0b5281a64d'//test primaraharjamulia
 
     ],
 
