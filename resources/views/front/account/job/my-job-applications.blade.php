@@ -49,7 +49,7 @@
                             @csrf
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label name="label_transaction_amount" id="label_transaction_amount" for="transaction_amount">Minimal Nominal<span class="text-danger"> Rp. 10.000</span><span class="text-info"> (Biaya Aplikasi 10% + Biaya Xendit 2.500)</span></label>
+                                    <label name="label_transaction_amount" id="label_transaction_amount" for="transaction_amount">Minimal Nominal<span class="text-danger"> Rp. 10.000</span><span class="text-info"> (Biaya Aplikasi 5% + Biaya Xendit 2.500)</span></label>
 
                                         <input onkeydown="if (!/^[0-9]$/.test(event.key) && event.key !== 'Backspace') { event.preventDefault(); }" type="number" class="form-control" name="transaction_amount" id="transaction_amount" value="10000" required>
                                 </div>
@@ -205,7 +205,7 @@
             var xdmId = document.getElementById('disbursement_method').value;
             var xdmName = $('#disbursement_method option:selected').text();
             var income_amount = parseFloat(document.getElementById('transaction_amount').value) || 0;
-            var app_amount = (income_amount * 10) / 100;
+            var app_amount = (income_amount * 5) / 100;
             var net_amount = income_amount + 2500 + app_amount;
             if (income_amount >= 10000){
                 $('input[name=amount]').val(net_amount);
@@ -248,7 +248,7 @@
     // });
     $(document).on('input', '#transaction_amount', function() {
         var income_amount = parseFloat(document.getElementById('transaction_amount').value) || 0;
-        var app_amount = (income_amount * 10) / 100;
+        var app_amount = (income_amount * 5) / 100;
         var net_amount = income_amount + 2500 + app_amount;
         if (income_amount >= 10000){
             $('input[name=amount]').val(net_amount);
