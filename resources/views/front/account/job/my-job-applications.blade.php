@@ -20,7 +20,6 @@
 
             {{-- @if ($withdraw) --}}
             <div class="col-lg-9">
-                <div class="col-lg-9">
                     <div class="card border-0 shadow mb-4">
                         <div class="card-body p-0 d-flex align-items-center shadow-sm">
                             <div class="bg-gradient-primary p-4 mfe-3 rounded-left">
@@ -31,7 +30,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
                 {{-- <div class="card border-0 shadow mb-4">
                     <div class="card-body p-0 d-flex align-items-center shadow-sm">
                         <div class="bg-gradient-primary p-4 mfe-3 rounded-left">
