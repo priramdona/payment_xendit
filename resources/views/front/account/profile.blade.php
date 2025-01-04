@@ -67,7 +67,7 @@
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">ID Bisnis/ ID User</label>
-                                <input type="text" name="foruserid" id="foruserid" placeholder="Biarkan default jika User ID bawaan dengan Program ini" class="form-control" value="{{ $user->foruserid }}">
+                                <input type="text" name="foruserid" id="foruserid" placeholder="Biarkan default jika User ID Platform atau yang Utama" class="form-control" value="{{ $user->foruserid }}">
                                 <p></p>
                             </div>
                         </div>
