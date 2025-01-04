@@ -27,6 +27,9 @@ use Illuminate\Support\Facades\Storage;
 use Milon\Barcode\Facades\DNS2DFacade;
 use Milon\Barcode\Facades\DNS1DFacade;
 use Intervention\Image\ImageManagerStatic as Image;
+
+use Illuminate\Support\Facades\Http;
+
 class AccountController extends Controller
 {
     // This method will show user registration page
@@ -373,11 +376,37 @@ class AccountController extends Controller
 
         if ($validator->passes()) {
 
+
+            $base64 = base64_encode(config('services.xendit.key').':');
+
+            $secret_key = 'Basic ' . $base64;
+            $url = 'https://api.xendit.co/v2/accounts';
+
+            $data = [
+                'email' => $request->email,
+                'type' => 'OWNED',
+                'public_profile' => [
+                    'business_name' => $request->name,
+                ],
+            ];
+
+            $response = Http::withHeaders([
+                'Authorization' => $secret_key,
+                'Content-Type' => 'application/json',
+            ])->post($url, $data);
+
+                // Mendapatkan respons dari server
+            $dataRequest = json_decode($response->getBody(), true);
+
             $user = new User();
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->name = $request->name;
+            $user->keypublic = 'default';
+            $user->keyprivate = 'default';
+            $user->foruserid = $dataRequest['id'];
+            $user->type = 'demo';
             $user->save();
 
             session()->flash('success','Anda telah berhasil mendaftar.');
