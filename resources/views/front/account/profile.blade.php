@@ -60,15 +60,17 @@
                         </div>
                         <div class="card-body  p-4">
                             <h3 class="fs-4 mb-1">Informasi XENDIT</h3>
-                            <span style="font-size: 10px; color: #5a5963;">Untuk keamaan, perubahan dibawah hanya bisa By request ya. Silakan email admin@priram.com</span>
+                            <span style="font-size: 12; color: #5a5963;">Pastikan Anda memasukan Informasi yang Benar.</span>
+                            <span style="font-size: 12; color: #5a5963;">Jika Pengaturan Whitelist "Aktif" Silakan masukan IP 103.102.0.154</span>
+
                             <div class="mb-4">
                                 <label for="" class="mb-2">API Key</label>
-                                <input type="text" name="keyprivate" id="keyprivate" placeholder="Biarkan default jika Key bawaan dengan Program ini" class="form-control" value="{{ $user->keyprivate }}" readonly>
+                                <input type="text" name="keyprivate" id="keyprivate" placeholder="Biarkan default jika Key bawaan dengan Program ini" class="form-control" value="{{ $user->keyprivate }}">
                                 <p></p>
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">ID Bisnis/ ID User</label>
-                                <input type="text" name="foruserid" id="foruserid" placeholder="Biarkan default jika User ID Platform atau yang Utama" class="form-control" value="{{ $user->foruserid }}" readonly>
+                                <input type="text" name="foruserid" id="foruserid" placeholder="Biarkan default jika User ID Platform atau yang Utama" class="form-control" value="{{ $user->foruserid }}">
                                 <p></p>
                             </div>
                         </div>
