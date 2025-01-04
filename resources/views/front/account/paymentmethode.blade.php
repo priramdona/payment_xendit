@@ -60,7 +60,7 @@
                                     <td>
                                         <img src="{{ $paymentMethod->image_url }}" alt="QRIS" class="payment-icon">
                                         {{ $paymentMethod->name }}
-                                        {!! $paymentMethod->status ? '' : '<span class="inactive-payment">(Belum aktif)</span>' !!}
+                                        {!! $paymentMethod->status ? '' : '<span class="inactive-payment">(Sedang gangguan)</span>' !!}
                                         <span class="checkmark"></span>
                                     </td>
                                 </tr>
