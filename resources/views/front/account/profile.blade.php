@@ -60,7 +60,6 @@
                         </div>
                         <div class="card-body  p-4">
                             <h3 class="fs-4 mb-1">Informasi XENDIT</h3>
-                            <span style="font-size: 12px; color: #5a5963;">Pastikan Anda memasukan Informasi yang Benar.</span>
                             <span style="font-size: 12px; color: #5a5963;">Jika Pengaturan Whitelist "Aktif" Silakan masukan IP 103.102.0.154</span>
 
                             <div class="mb-4">
@@ -75,6 +74,7 @@
                                 <span style="font-size: 8px; color: #ff0000;">Biarkan "default" jika tidak menggunakan XenPlatform atau SubAccount.</span>
 
                                 <p></p>
+                                <span style="font-size: 12px; color: #070707;">Jika ada pertanyaan, Silakan Email : admin@priram.com</span>
                             </div>
                         </div>
                         <div class="card-footer  p-4">
