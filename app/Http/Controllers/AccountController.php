@@ -721,9 +721,16 @@ class AccountController extends Controller
         $paymentGateway =  new PaymentGatewayController();
         $balance = $paymentGateway->showBalance();
 
+        if (Auth::user()->keyprivate === 'default' || Auth::user()->keyprivate === config('services.xendit.key') || Auth::user()->keyprivate === config('services.xendit.key_prod')){
+            $withdraw = true;
+        }else{
+            $withdraw = false;
+        }
+
         return view('front.account.job.my-job-applications',[
             'jobApplications' => $jobApplications,
             'balance' => $balance,
+            'withdraw' => $withdraw,
         ]);
     }
 

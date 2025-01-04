@@ -545,6 +545,7 @@ class PaymentGatewayController extends Controller
         $balance = JobApplication::where('user_id',Auth::user()->id)
         ->where('status','Settled')
         ->where('user_type', Auth::user()->type)
+        // ->where('key_api', Auth::user()->keyprivate)
         ->whereNot('type','Disbursement')
         ->sum('received_amount');
 
@@ -553,6 +554,7 @@ class PaymentGatewayController extends Controller
         // ->where('status','Settled')
         ->where('type','Disbursement')
         ->where('user_type', Auth::user()->type)
+        // ->where('key_api', Auth::user()->keyprivate)
         ->sum('received_amount');
 
         return $balance - $balanceOut;
