@@ -18,9 +18,9 @@
                 @include('front.account.sidebar')
             </div>
 
-            @if ($withdraw)
+            {{-- @if ($withdraw) --}}
             <div class="col-lg-9">
-                <div class="card border-0 shadow mb-4">
+                {{-- <div class="card border-0 shadow mb-4">
                     <div class="card-body p-0 d-flex align-items-center shadow-sm">
                         <div class="bg-gradient-primary p-4 mfe-3 rounded-left">
                             <i class="bi bi-cash font-2xl"></i>
@@ -30,9 +30,9 @@
                             <div class="text-muted text-uppercase font-weight-bold large">Saldo Anda</div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="card border-0 shadow mb-4">
+                {{-- <div class="card border-0 shadow mb-4">
                     <div class="card-header bg-primary text-white">
                         <h5 class="mb-0">Penarikan Dana</h5>
                     </div>
@@ -119,7 +119,7 @@
                             </button>
                         </form>
                     </div>
-                </div>
+                </div> --}}
                 @include('front.message')
                 <div class="card border-0 shadow mb-4 p-3">
                     <div class="card-body card-form">
@@ -169,20 +169,20 @@
                     </div>
                 </div>
             </div>
-            @else
-            <div class="col-lg-9">
-                <div class="card border-0 shadow mb-4">
-                    <div class="card-body p-0 d-flex align-items-center shadow-sm">
-                        <div class="bg-gradient-primary p-4 mfe-3 rounded-left">
-                            <i class="bi bi-info font-2xl"></i>
-                        </div>
-                        <div>
-                            <div class="text-value text-primary" style="font-weight: bold; font-size: 20px;">Penarikan di Tools ini hanya bisa digunakan untuk Key Default. Agar lebih aman, Anda dapat melakukan penarikan di Akun XENDIT yang Anda miliki langsung di Aplikasi XENDIT.</div>
+            {{-- @else
+                <div class="col-lg-9">
+                    <div class="card border-0 shadow mb-4">
+                        <div class="card-body p-0 d-flex align-items-center shadow-sm">
+                            <div class="bg-gradient-primary p-4 mfe-3 rounded-left">
+                                <i class="bi bi-info font-2xl"></i>
+                            </div>
+                            <div>
+                                <div class="text-value text-primary" style="font-weight: bold; font-size: 20px;">Penarikan di Tools ini hanya bisa digunakan untuk Key Default. Agar lebih aman, Anda dapat melakukan penarikan di Akun XENDIT yang Anda miliki langsung di Aplikasi XENDIT.</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            @endif
+            @endif --}}
 
         </div>
     </div>
