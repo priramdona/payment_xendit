@@ -112,7 +112,7 @@
                                     <input type="number" name="phone" id="phone" class="form-control mb-2" placeholder="Nomor HP (opsional)">
 
                                 @endif
-                                <div class="form-check">
+                                <div class="form-check" hidden>
                                     <input type="checkbox" name="hide_name" id="hide_name" >
                                     <label class="form-check-label" for="hide_name">Sembunyikan nama saya</label>
                                 </div>
