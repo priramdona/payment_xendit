@@ -60,19 +60,19 @@
                         </div>
                         <div class="card-body  p-4">
                             <h3 class="fs-4 mb-1">Informasi XENDIT</h3>
-                            <span style="font-size: 12; color: #5a5963;">Pastikan Anda memasukan Informasi yang Benar.</span>
-                            <span style="font-size: 12; color: #5a5963;">Jika Pengaturan Whitelist "Aktif" Silakan masukan IP 103.102.0.154</span>
+                            <span style="font-size: 12px; color: #5a5963;">Pastikan Anda memasukan Informasi yang Benar.</span>
+                            <span style="font-size: 12px; color: #5a5963;">Jika Pengaturan Whitelist "Aktif" Silakan masukan IP 103.102.0.154</span>
 
                             <div class="mb-4">
                                 <label for="" class="mb-2">API Key</label>
                                 <input type="text" name="keyprivate" id="keyprivate" placeholder="Biarkan default jika Key bawaan dengan Program ini" class="form-control" value="{{ $user->keyprivate }}">
-                                <span style="font-size: 10; color: #ff0000;">Biarkan "default" jika bawaan dengan Program ini, Atau Silakan masukan API Key jika ingin menggunakan Akun Xendit Lain.</span>
+                                <span style="font-size: 8px; color: #ff0000;">Biarkan "default" jika bawaan dengan Program ini, Atau Silakan masukan API Key jika ingin menggunakan Akun Xendit Lain.</span>
                                 <p></p>
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">ID Bisnis/ ID User</label>
                                 <input type="text" name="foruserid" id="foruserid" placeholder="Biarkan default jika User ID Platform atau yang Utama" class="form-control" value="{{ $user->foruserid }}">
-                                <span style="font-size: 10; color: #ff0000;">Biarkan "default" jika tidak menggunakan XenPlatform atau SubAccount.</span>
+                                <span style="font-size: 8px; color: #ff0000;">Biarkan "default" jika tidak menggunakan XenPlatform atau SubAccount.</span>
 
                                 <p></p>
                             </div>
