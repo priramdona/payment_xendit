@@ -62,7 +62,7 @@
                             <h3 class="fs-4 mb-1">Informasi XENDIT</h3>
                             <span style="font-size: 10px; color: #5a5963;">Untuk keamaan, perubahan dibawah hanya bisa By request ya. Silakan email admin@priram.com</span>
                             <div class="mb-4">
-                                <label for="" class="mb-2">Key</label>
+                                <label for="" class="mb-2">API Key</label>
                                 <input type="text" name="keyprivate" id="keyprivate" placeholder="Biarkan default jika Key bawaan dengan Program ini" class="form-control" value="{{ $user->keyprivate }}" readonly>
                                 <p></p>
                             </div>
