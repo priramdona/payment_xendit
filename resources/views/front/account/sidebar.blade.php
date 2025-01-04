@@ -6,7 +6,7 @@
                 <a href="{{ route('account.profile') }}">Akun</a>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                <a href="{{ route('account.myJobApplications') }}">Penarikan Saldo & Mutasi</a>
+                <a href="{{ route('account.myJobApplications') }}">Mutasi Pembayaran</a>
             </li>
             {{-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <a href="{{ route('account.createJob') }}">Buat Galang Donasi</a>
