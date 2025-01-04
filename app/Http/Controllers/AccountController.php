@@ -377,26 +377,39 @@ class AccountController extends Controller
         if ($validator->passes()) {
 
 
-            $base64 = base64_encode(config('services.xendit.key').':');
+            // $base64 = base64_encode(config('services.xendit.key').':');
 
-            $secret_key = 'Basic ' . $base64;
-            $url = 'https://api.xendit.co/v2/accounts';
+            // $secret_key = 'Basic ' . $base64;
+            // $url = 'https://api.xendit.co/v2/accounts';
 
-            $data = [
-                'email' => $request->email,
-                'type' => 'OWNED',
-                'public_profile' => [
-                    'business_name' => $request->name,
-                ],
-            ];
+            // $data = [
+            //     'email' => $request->email,
+            //     'type' => 'OWNED',
+            //     'public_profile' => [
+            //         'business_name' => $request->name,
+            //     ],
+            // ];
 
-            $response = Http::withHeaders([
-                'Authorization' => $secret_key,
-                'Content-Type' => 'application/json',
-            ])->post($url, $data);
+                 // Data yang akan dikirimkan
+            // $data = [
+            //     'email' => $request->email,
+            //     'public_profile' => [
+            //         'business_name' => $request->name,
+            //     ],
+            //     'configurations' => [
+            //         'has_dashboard' => true,
+            //         'payment_settings_follow_platform' => true,
+            //         'has_withdrawal' => false,
+            //     ],
+            // ];
 
-                // Mendapatkan respons dari server
-            $dataRequest = json_decode($response->getBody(), true);
+            // $response = Http::withHeaders([
+            //     'Authorization' => $secret_key,
+            //     'Content-Type' => 'application/json',
+            // ])->post($url, $data);
+
+            //     // Mendapatkan respons dari server
+            // $dataRequest = json_decode($response->getBody(), true);
 
             $user = new User();
             $user->name = $request->name;
@@ -405,7 +418,7 @@ class AccountController extends Controller
             $user->name = $request->name;
             $user->keypublic = 'default';
             $user->keyprivate = 'default';
-            $user->foruserid = $dataRequest['id'];
+            $user->foruserid = 'default';
             $user->type = 'demo';
             $user->save();
 
