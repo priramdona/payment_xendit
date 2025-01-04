@@ -66,11 +66,14 @@
                             <div class="mb-4">
                                 <label for="" class="mb-2">API Key</label>
                                 <input type="text" name="keyprivate" id="keyprivate" placeholder="Biarkan default jika Key bawaan dengan Program ini" class="form-control" value="{{ $user->keyprivate }}">
+                                <span style="font-size: 10; color: #ff0000;">Biarkan "default" jika bawaan dengan Program ini, Atau Silakan masukan API Key jika ingin menggunakan Akun Xendit Lain.</span>
                                 <p></p>
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">ID Bisnis/ ID User</label>
                                 <input type="text" name="foruserid" id="foruserid" placeholder="Biarkan default jika User ID Platform atau yang Utama" class="form-control" value="{{ $user->foruserid }}">
+                                <span style="font-size: 10; color: #ff0000;">Biarkan "default" jika tidak menggunakan XenPlatform atau SubAccount.</span>
+
                                 <p></p>
                             </div>
                         </div>
