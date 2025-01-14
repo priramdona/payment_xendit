@@ -26,7 +26,7 @@
                                 <i class="bi bi-info font-2xl"></i>
                             </div>
                             <div>
-                                <div class="text-value text-primary" style="font-weight: bold; font-size: 20px;">Anda dapat melakukan penarikan di Akun XENDIT yang Anda miliki langsung di Aplikasi XENDIT.</div>
+                                <div class="text-value text-primary" style="font-weight: bold; font-size: 20px;">Anda dapat melakukan penarikan angsung di Aplikasi XENDIT..</div>
                             </div>
                         </div>
                     </div>
