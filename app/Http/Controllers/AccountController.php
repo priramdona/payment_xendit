@@ -419,7 +419,7 @@ class AccountController extends Controller
             $user->keypublic = 'default';
             $user->keyprivate = 'default';
             $user->foruserid = 'default';
-            $user->type = 'live';
+            $user->type = 'demo';
             $user->save();
 
             session()->flash('success','Anda telah berhasil mendaftar.');
